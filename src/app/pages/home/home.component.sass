@@ -1,0 +1,54 @@
+.box-padding
+    padding: 24px
+    
+.box-light-gray
+    background-color: var(--light-text)
+
+.box-border
+    border: 4px solid var(--light-text)
+
+.box-radius
+    border-radius: 0.2em 
+
+.section-home
+    display: flex
+    flex-direction: column
+    gap: 24px
+    margin: 48px 0
+
+    h1
+        font-weight: 700
+
+.line-title
+    height: 10px
+    width: 60px
+    background-color: #000
+
+.section__form
+    display: flex
+    flex-direction: column
+    gap: 24px
+
+.section__form--hour
+    display: flex
+    align-items: center
+    column-gap: 8px
+   
+.section__recommended 
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+    
+.section__unities
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    grid-column-gap: 24px
+    grid-row-gap: 24px
+
+@media (max-width: 768px) 
+    .section__recommended 
+        flex-direction: column
+        row-gap: 24px
+    .section__unities
+        grid-template-columns: 1fr
+    

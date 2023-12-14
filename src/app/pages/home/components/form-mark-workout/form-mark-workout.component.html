@@ -1,0 +1,66 @@
+<form class="form__mark-wokout" [formGroup]="formGroup">
+  <h1>Qual período quer treinar?</h1>
+  <hr />
+  <div class="form__mark-wokout--div-checkbox flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="morning0600-1200"
+        formControlName="hour"
+      />
+      <label for="morning">Manhã</label>
+    </div>
+
+    <span>06:00 às 12h</span>
+  </div>
+  <hr />
+
+  <div class="form__mark-wokout--div-checkbox flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="afternoon1201-1800"
+        formControlName="hour"
+      />
+      <label for="afternoon">Tarde</label>
+    </div>
+    <span>12:01 às 18h</span>
+  </div>
+  <hr />
+
+  <div class="form__mark-wokout--div-checkbox flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="night1801-2300"
+        formControlName="hour"
+      />
+      <label for="night">Noite</label>
+    </div>
+    <span>18:01 às 23h</span>
+  </div>
+  <hr />
+
+  <div class="flex-space-between">
+    <div>
+      <input
+        type="checkbox"
+        name="hour"
+        value="night"
+        formControlName="showClosedUnits"
+      />
+      <label for="showClosedUnits">Exibir unidades fechadas</label>
+    </div>
+    <span>Resultados encontrados: <b>0</b></span>
+  </div>
+
+  <div class="form__mark-wokout--buttons">
+    <button class="btn btn-primary" (click)="onSubmit()">
+      Encontrar unidade
+    </button>
+    <button class="btn btn-secondary" (click)="onReset()">Limpar</button>
+  </div>
+</form>
