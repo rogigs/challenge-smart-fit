@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { mockResponseUnitsLocations } from './responses/smart-fit.response';
 import { Observable } from 'rxjs';
+import { mockUnitsLocations } from 'src/app/shared/mocks/smart-fit.mock';
 
-export type UnitsLocations = typeof mockResponseUnitsLocations;
+export type UnitsLocations = typeof mockUnitsLocations;
+export type UnitLocation = (typeof mockUnitsLocations.locations)[0];
 
 @Injectable({
   providedIn: 'root',

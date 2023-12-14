@@ -1,4 +1,4 @@
-export const mockResponseUnitsLocations = {
+export const mockUnitsLocations = {
   current_country_id: 1,
   locations: [
     {

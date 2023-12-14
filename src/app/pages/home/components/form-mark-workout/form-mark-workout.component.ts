@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./form-mark-workout.component.sass'],
 })
 export class FormMarkWorkoutComponent {
-  @Input() numberItens!: number;
+  @Input() numberItems!: number;
   formGroup!: FormGroup;
 
   @Output() sendEventToFilterUnits = new EventEmitter<{

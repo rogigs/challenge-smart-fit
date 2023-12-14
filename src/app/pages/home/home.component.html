@@ -18,32 +18,25 @@
     </div>
     <app-form-mark-workout
       (sendEventToFilterUnits)="filterUnits($event)"
-      [numberItens]="numberItens"
+      [numberItems]="numberItems"
     />
   </section>
 
   <section class="section__recommended box-light-gray box-padding">
-    <div *ngFor="let item of itensRecommendeds">
+    <div *ngFor="let item of itemsRecommended">
       <app-item-recommended [item]="item" />
     </div>
   </section>
-
-  <h1 *ngIf="unitsFiltered.length === 0 || unitsLocations === null">
-    Nenhuma unidade encontrada
-  </h1>
-
-  <section
-    *ngIf="unitsLocations && unitsFiltered.length === 0"
-    class="section__unities"
+  <ng-template #noUnits>
+    <h1>Nenhuma unidade encontrada</h1>
+  </ng-template>
+  <ng-container
+    *ngIf="unitsFiltered.length > 0 || unitsLocations; else noUnits"
   >
-    <div *ngFor="let unit of unitsLocations.locations">
-      <app-card-unity [unit]="unit" />
-    </div>
-  </section>
-
-  <section *ngIf="unitsFiltered.length > 0" class="section__unities">
-    <div *ngFor="let unit of unitsFiltered">
-      <app-card-unity [unit]="unit" />
-    </div>
-  </section>
+    <section class="section__unities">
+      <div *ngFor="let unit of whoIsToListItem()">
+        <app-card-unity [unit]="unit" />
+      </div>
+    </section>
+  </ng-container>
 </section>

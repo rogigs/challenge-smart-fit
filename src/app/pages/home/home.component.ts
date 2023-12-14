@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
   SmartFitService,
+  UnitLocation,
   UnitsLocations,
 } from 'src/app/core/services/smart-fit.service';
-import { recommendations } from 'src/app/core/utils/home/recommendations';
+import {
+  Recommendations,
+  recommendations,
+} from 'src/app/core/utils/home/recommendations';
 import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 
@@ -14,17 +18,25 @@ import { enUS } from 'date-fns/locale';
 })
 export class HomeComponent implements OnInit {
   unitsLocations!: UnitsLocations;
-  itensRecommendeds = recommendations;
+  itemsRecommended: Recommendations = recommendations;
   unitsFiltered: any = [];
-  numberItens = 0;
+  numberItems: number = 0;
 
   constructor(private smartFitService: SmartFitService) {}
 
   ngOnInit() {
     this.smartFitService.getUnitsLocations().subscribe((unitsLocations) => {
       this.unitsLocations = unitsLocations;
-      this.numberItens = unitsLocations.locations.length;
+      this.numberItems = unitsLocations.locations.length;
     });
+  }
+
+  whoIsToListItem(): UnitLocation[] {
+    if (this.unitsFiltered.length) {
+      return this.unitsFiltered;
+    }
+
+    return this.unitsLocations.locations;
   }
 
   filterUnits($event: { hour: string; showClosedUnits: boolean }) {
@@ -84,6 +96,6 @@ export class HomeComponent implements OnInit {
       .reduce(reduceUnits, []);
 
     this.unitsFiltered = units;
-    this.numberItens = units.length;
+    this.numberItems = units.length;
   }
 }
