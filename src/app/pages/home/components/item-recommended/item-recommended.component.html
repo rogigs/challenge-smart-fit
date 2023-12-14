@@ -1,13 +1,9 @@
-<div>
-  <h1>Máscara</h1>
-  <div>
+<div *ngIf="item">
+  <h1>{{ item.title }}</h1>
+  <div *ngFor="let image of item.images">
     <div>
-      <img src="../../../../../assets/required-mask.png" alt="Imagem de ..." />
-      <p>Obrigatório</p>
-    </div>
-    <div>
-      <img src="../../../../../assets/required-mask.png" alt="Imagem de ..." />
-      <p>Recomendado</p>
+      <img [src]="'../../../assets/' + image.name" alt="Imagem de ..." />
+      <figcaption>{{ image.legend }}</figcaption>
     </div>
   </div>
 </div>
