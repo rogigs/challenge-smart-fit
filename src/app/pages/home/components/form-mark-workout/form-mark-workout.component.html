@@ -1,4 +1,4 @@
-<form class="form__mark-wokout">
+<form class="form__mark-wokout" [formGroup]="formGroup">
   <h1>Qual período quer treinar?</h1>
   <hr />
   <div class="flex-space-between">
@@ -36,14 +36,21 @@
 
   <div class="flex-space-between">
     <div>
-      <input type="checkbox" name="hour" value="night" formControlName="hour" />
-      <label for="showClosed">Exibir unidades fechadas</label>
+      <input
+        type="checkbox"
+        name="hour"
+        value="night"
+        formControlName="showClosedUnits"
+      />
+      <label for="showClosedUnits">Exibir unidades fechadas</label>
     </div>
     <span>Resultados encontrados: 0</span>
   </div>
 
   <div class="form__mark-wokout--buttons">
-    <button class="btn btn-primary">Encontrar unidade</button>
-    <button class="btn btn-secondary">Limpar</button>
+    <button class="btn btn-primary" (click)="onSubmit()">
+      Encontrar unidade
+    </button>
+    <button class="btn btn-secondary" (click)="onReset()">Limpar</button>
   </div>
 </form>

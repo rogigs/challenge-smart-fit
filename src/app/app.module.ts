@@ -8,6 +8,8 @@ import { CardUnityComponent } from './pages/home/components/card-unity/card-unit
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './pages/home/home.component';
 import { FormMarkWorkoutComponent } from './pages/home/components/form-mark-workout/form-mark-workout.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormGroup, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,14 @@ import { FormMarkWorkoutComponent } from './pages/home/components/form-mark-work
     CardUnityComponent,
     FormMarkWorkoutComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

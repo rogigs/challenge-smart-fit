@@ -8,5 +8,5 @@ type Item = (typeof recommendations)[0];
   styleUrls: ['./item-recommended.component.sass'],
 })
 export class ItemRecommendedComponent {
-  @Input() item: Item | null = null;
+  @Input() item!: Item;
 }
