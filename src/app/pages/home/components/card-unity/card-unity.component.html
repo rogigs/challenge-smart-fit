@@ -7,22 +7,34 @@
 
   <div class="card-unity__section--images">
     <img
-      [src]="'../../../../../assets/' + unit.mask + '-mask.png'"
+      [src]="
+        '../../../../../assets/' + getCorrectImage(unit.mask) + '-mask.png'
+      "
       loading="lazy"
       [alt]="'Imagem de' + unit.mask"
     />
     <img
-      [src]="'../../../../../assets/' + unit.towel + '-towel.png'"
+      [src]="
+        '../../../../../assets/' + getCorrectImage(unit.towel) + '-towel.png'
+      "
       loading="lazy"
       [alt]="'Imagem de' + unit.towel"
     />
     <img
-      [src]="'../../../../../assets/' + unit.fountain + '-fountain.png'"
+      [src]="
+        '../../../../../assets/' +
+        getCorrectImage(unit.fountain) +
+        '-fountain.png'
+      "
       loading="lazy"
       [alt]="'Imagem de' + unit.fountain"
     />
     <img
-      [src]="'../../../../../assets/' + unit.locker_room + '-lockerroom.png'"
+      [src]="
+        '../../../../../assets/' +
+        getCorrectImage(unit.locker_room) +
+        '-lockerroom.png'
+      "
       loading="lazy"
       [alt]="'Imagem de' + unit.locker_room"
     />
