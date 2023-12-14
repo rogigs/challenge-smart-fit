@@ -1,20 +1,11 @@
-<div class="card-unity__section box-light-gray box">
-  <p
-    *ngIf="unit.opened === true"
-    class="card-unity__section--subtitle font-green"
-  >
-    Aberto
-  </p>
-  <p
-    *ngIf="unit.opened === false"
-    class="card-unity__section--subtitle font-red"
-  >
-    Fechado
-  </p>
+<div *ngIf="unit.opened === true" class="card-unity__section box">
+  <p class="card-unity__section--subtitle font-green">Aberto</p>
   <h1>{{ unit.title }}</h1>
   <div [innerHTML]="unit.content"></div>
+
   <hr />
-  <div>
+
+  <div class="card-unity__section--images">
     <img
       [src]="'../../../../../assets/' + unit.mask + '-mask.png'"
       alt="Imagem de ..."
@@ -32,10 +23,17 @@
       alt="Imagem de ..."
     />
   </div>
+
   <div class="card-unity__section--times">
     <div *ngFor="let schedule of unit.schedules">
       <p class="font-title">{{ schedule.weekdays }}</p>
       <p>{{ schedule.hour }}</p>
     </div>
   </div>
+</div>
+
+<div *ngIf="unit.opened === false" class="card-unity__section box">
+  <p class="card-unity__section--subtitle font-red">Fechado</p>
+  <h1>{{ unit.title }}</h1>
+  <div [innerHTML]="unit.content"></div>
 </div>

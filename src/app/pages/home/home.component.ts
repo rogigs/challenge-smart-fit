@@ -60,11 +60,7 @@ export class HomeComponent implements OnInit {
           weekday === schedule.weekdays &&
           isTimeSlotAvailable(schedule.hour)
         ) {
-          if ($event.showClosedUnits) {
-            return $event.showClosedUnits;
-          } else {
-            unitAccumulator.push(unit);
-          }
+          unitAccumulator.push(unit);
         }
         return unitAccumulator;
       };
