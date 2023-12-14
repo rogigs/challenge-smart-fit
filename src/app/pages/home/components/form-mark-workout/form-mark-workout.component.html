@@ -1,3 +1,4 @@
+<!-- TODO: Increase acessibility -->
 <form class="form__mark-wokout" [formGroup]="formGroup">
   <h1>Qual período quer treinar?</h1>
   <hr />
@@ -8,6 +9,7 @@
         name="hour"
         value="morning06-12"
         formControlName="hour"
+        id="morning"
       />
       <label for="morning">Manhã</label>
     </div>
@@ -23,6 +25,7 @@
         name="hour"
         value="afternoon12-18"
         formControlName="hour"
+        id="afternoon"
       />
       <label for="afternoon">Tarde</label>
     </div>
@@ -37,6 +40,7 @@
         name="hour"
         value="night18-23"
         formControlName="hour"
+        id="night"
       />
       <label for="night">Noite</label>
     </div>
@@ -60,9 +64,19 @@
   </div>
 
   <div class="form__mark-wokout--buttons">
-    <button class="btn btn-primary" (click)="onSubmit()">
+    <button
+      class="btn btn-primary"
+      (click)="onSubmit()"
+      aria-label="encontrar unidade"
+    >
       Encontrar unidade
     </button>
-    <button class="btn btn-secondary" (click)="onReset()">Limpar</button>
+    <button
+      class="btn btn-secondary"
+      (click)="onReset()"
+      aria-label="limpar formulário"
+    >
+      Limpar
+    </button>
   </div>
 </form>
