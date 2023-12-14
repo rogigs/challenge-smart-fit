@@ -7,21 +7,21 @@
     medidas de segurança que estamos seguindo.
   </p>
 
-  <section class="section__form box">
+  <section class="section__form box-padding box-border box-radius">
     <div class="section__form--hour">
       <img src="../../../assets/icon-hour.png" alt="Imagem de um relógio" />
       <p>Horário</p>
     </div>
-    <app-form-mark-workout />
+    <app-form-mark-workout (sendEventToFilterUnits)="filterUnits($event)" />
   </section>
 
-  <section class="section__recommended box-light-gray box">
+  <section class="section__recommended box-light-gray box-padding">
     <div *ngFor="let item of itensRecommendeds">
       <app-item-recommended [item]="item" />
     </div>
   </section>
 
-  <section *ngIf="unitsLocations" class="section__unities box-light-gray box">
+  <section *ngIf="unitsLocations" class="section__unities">
     <div *ngFor="let unit of unitsLocations.locations">
       <app-card-unity [units]="unit" />
     </div>

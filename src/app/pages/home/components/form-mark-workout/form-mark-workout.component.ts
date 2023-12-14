@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class FormMarkWorkoutComponent {
   formGroup!: FormGroup;
 
+  @Output() sendEventToFilterUnits = new EventEmitter<{
+    hour: string;
+    showClosedUnits: boolean;
+  }>();
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -16,12 +21,12 @@ export class FormMarkWorkoutComponent {
       hour: '',
       showClosedUnits: true,
     });
-
-    console.log(this.formGroup);
   }
 
   onSubmit() {
     console.log(this.formGroup.value);
+
+    this.sendEventToFilterUnits.emit(this.formGroup.value);
   }
 
   onReset() {

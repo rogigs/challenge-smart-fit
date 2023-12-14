@@ -1,7 +1,7 @@
-<div *ngIf="item">
+<div *ngIf="item" class="wrapper__item-recommended">
   <h1>{{ item.title }}</h1>
-  <div *ngFor="let image of item.images">
-    <div>
+  <div class="wrapper__item-recommended--img">
+    <div *ngFor="let image of item.images">
       <img [src]="'../../../assets/' + image.name" alt="Imagem de ..." />
       <figcaption>{{ image.legend }}</figcaption>
     </div>

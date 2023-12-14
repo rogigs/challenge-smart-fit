@@ -1,36 +1,46 @@
 <form class="form__mark-wokout" [formGroup]="formGroup">
   <h1>Qual período quer treinar?</h1>
   <hr />
-  <div class="flex-space-between">
-    <div>
-      <input type="radio" name="hour" value="morning" formControlName="hour" />
-      <label for="morning">Manhã</label>
-    </div>
-
-    <span>06:00 ás 12h</span>
-  </div>
-  <hr />
-
-  <div class="flex-space-between">
+  <div class="form__mark-wokout--div-checkbox flex-space-between">
     <div>
       <input
         type="radio"
         name="hour"
-        value="afternoon"
+        value="morning0600-1200"
+        formControlName="hour"
+      />
+      <label for="morning">Manhã</label>
+    </div>
+
+    <span>06:00 às 12h</span>
+  </div>
+  <hr />
+
+  <div class="form__mark-wokout--div-checkbox flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="afternoon1201-1800"
         formControlName="hour"
       />
       <label for="afternoon">Tarde</label>
     </div>
-    <span>12:01 ás 18h</span>
+    <span>12:01 às 18h</span>
   </div>
   <hr />
 
-  <div class="flex-space-between">
+  <div class="form__mark-wokout--div-checkbox flex-space-between">
     <div>
-      <input type="radio" name="hour" value="night" formControlName="hour" />
+      <input
+        type="radio"
+        name="hour"
+        value="night1801-2300"
+        formControlName="hour"
+      />
       <label for="night">Noite</label>
     </div>
-    <span>18:01 ás 23h</span>
+    <span>18:01 às 23h</span>
   </div>
   <hr />
 
@@ -44,7 +54,7 @@
       />
       <label for="showClosedUnits">Exibir unidades fechadas</label>
     </div>
-    <span>Resultados encontrados: 0</span>
+    <span>Resultados encontrados: <b>0</b></span>
   </div>
 
   <div class="form__mark-wokout--buttons">
