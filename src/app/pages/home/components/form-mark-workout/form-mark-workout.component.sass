@@ -7,7 +7,7 @@
 .form__mark-wokout
     display: flex
     flex-direction: column
-    row-gap: 12px
+    row-gap: var(--spacing-12)
     
     hr
         height: 2px
@@ -18,7 +18,7 @@
         border: none
     
     input
-        margin-right: 8px
+        margin-right: var(--spacing-8)
     
 .form__mark-wokout--div-checkbox
     color: var(--medium-text) 
@@ -27,7 +27,7 @@
 .form__mark-wokout--buttons
     display: flex
     justify-content: center
-    column-gap: 12px
+    column-gap: var(--spacing-12)
 
 .btn 
     height: 40px
@@ -39,7 +39,7 @@
     border-radius: 0.2em
 
 .btn-primary
-    background-color: var(--yellow)
+    background-color: var(--primary-color)
 
 .btn-secondary
     background-color: white
@@ -48,7 +48,7 @@
 @media (max-width: 768px) 
     .form__mark-wokout--buttons
         flex-direction: column
-        row-gap: 12px
+        row-gap: var(--spacing-12)
         
     .btn
         width: 100%

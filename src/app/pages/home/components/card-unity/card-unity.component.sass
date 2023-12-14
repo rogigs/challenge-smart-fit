@@ -1,8 +1,7 @@
 .card-unity__section
     display: flex
     flex-direction: column
-    row-gap: 12px
-   
+    row-gap:  var(--spacing-12)
 
     hr
         height: 1px
@@ -13,7 +12,7 @@
         border: none
         
     h1 
-        font-size: 24px
+        font-size: var(--font-size-large)
 
 .card-unity__section--subtitle
     font-weight: 700
@@ -31,24 +30,24 @@
     display: grid
     grid-template-columns: repeat(2, 1fr)
     grid-template-rows: repeat(2, 1fr)
-    grid-column-gap: 24px
-    grid-row-gap: 24px
-    margin-top: 12px
+    grid-column-gap: var(--spacing-24)
+    grid-row-gap:  var(--spacing-24)
+    margin-top: var(--spacing-12)
     
 .box
     border-radius: 0.2em 
     box-shadow: 0px 3px 6px 0px var(--medium-text)
-    padding: 12px
-    background-color: rgba(229, 229, 229, 0.5)
+    padding: var(--spacing-12)
+    background-color: var(--light-text-transparent)
     min-height: 282px
     height: 100%
 
 .font-title
-    font-size: 18px
+    font-size: var( --font-size-normal)
     font-weight: 700    
 
 .font-green
-    color: var(--green)
+    color: var(--sucess-color)
 
 .font-red
-    color: var(--red)
+    color: var(--error-color)
