@@ -16,14 +16,14 @@ export class HomeComponent implements OnInit {
   unitsLocations!: UnitsLocations;
   itensRecommendeds = recommendations;
   unitsFiltered: any = [];
+  numberItens = 0;
 
   constructor(private smartFitService: SmartFitService) {}
 
   ngOnInit() {
     this.smartFitService.getUnitsLocations().subscribe((unitsLocations) => {
-      console.log(unitsLocations);
-
       this.unitsLocations = unitsLocations;
+      this.numberItens = unitsLocations.locations.length;
     });
   }
 
@@ -54,14 +54,15 @@ export class HomeComponent implements OnInit {
       return eventFirst >= unitFirst || unitLast <= eventLast;
     };
 
-    const units =
-      this.unitsLocations?.locations?.reduce((accumulator, unit) => {
-        const availableUnitsForDay = unit?.schedules?.reduce(
-          (unitAccumulator: any, schedule) => {
-            if (
+    const units: any[] = (this.unitsLocations?.locations || []).reduce(
+      (accumulator: any[], unit: any) => {
+        const availableUnitsForDay: any[] = (unit?.schedules || []).reduce(
+          (unitAccumulator: any[], schedule: any) => {
+            const isAvailable =
               weekday === schedule.weekdays &&
-              isTimeSlotAvailable(schedule.hour)
-            ) {
+              ($event.showClosedUnits || isTimeSlotAvailable(schedule.hour));
+
+            if (isAvailable) {
               unitAccumulator.push(unit);
             }
 
@@ -71,12 +72,11 @@ export class HomeComponent implements OnInit {
         );
 
         return accumulator.concat(availableUnitsForDay);
-      }, []) || [];
+      },
+      []
+    );
 
     this.unitsFiltered = units;
-    console.log(
-      '🚀 ~ file: home.component.ts:77 ~ HomeComponent ~ filterUnits ~ this.unitsFiltered:',
-      this.unitsFiltered
-    );
+    this.numberItens = units.length;
   }
 }

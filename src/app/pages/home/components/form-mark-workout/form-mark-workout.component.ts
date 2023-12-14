@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./form-mark-workout.component.sass'],
 })
 export class FormMarkWorkoutComponent {
+  @Input() numberItens!: number;
   formGroup!: FormGroup;
 
   @Output() sendEventToFilterUnits = new EventEmitter<{
@@ -24,8 +25,6 @@ export class FormMarkWorkoutComponent {
   }
 
   onSubmit() {
-    console.log(this.formGroup.value);
-
     this.sendEventToFilterUnits.emit(this.formGroup.value);
   }
 
