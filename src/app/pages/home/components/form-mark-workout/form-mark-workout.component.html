@@ -1,0 +1,49 @@
+<form class="form__mark-wokout">
+  <h1>Qual período quer treinar?</h1>
+  <hr />
+  <div class="flex-space-between">
+    <div>
+      <input type="radio" name="hour" value="morning" formControlName="hour" />
+      <label for="morning">Manhã</label>
+    </div>
+
+    <span>06:00 ás 12h</span>
+  </div>
+  <hr />
+
+  <div class="flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="afternoon"
+        formControlName="hour"
+      />
+      <label for="afternoon">Tarde</label>
+    </div>
+    <span>12:01 ás 18h</span>
+  </div>
+  <hr />
+
+  <div class="flex-space-between">
+    <div>
+      <input type="radio" name="hour" value="night" formControlName="hour" />
+      <label for="night">Noite</label>
+    </div>
+    <span>18:01 ás 23h</span>
+  </div>
+  <hr />
+
+  <div class="flex-space-between">
+    <div>
+      <input type="checkbox" name="hour" value="night" formControlName="hour" />
+      <label for="showClosed">Exibir unidades fechadas</label>
+    </div>
+    <span>Resultados encontrados: 0</span>
+  </div>
+
+  <div class="form__mark-wokout--buttons">
+    <button class="btn btn-primary">Encontrar unidade</button>
+    <button class="btn btn-secondary">Limpar</button>
+  </div>
+</form>
