@@ -3,6 +3,14 @@
     flex-direction: column
     row-gap: 12px
 
+    hr
+        height: 2px
+        width: 100%
+        background-color: var(--light-text)
+        border-color: var(--light-text)
+        color: var(--light-text)
+        border: none
+        
     h1 
         font-size: 24px
 
@@ -11,19 +19,27 @@
         width: 80px
 
 .card-unity__section--subtitle
-    color: green
     font-weight: 700
 
 .card-unity__section--times
-    display: flex
-    flex-wrap: wrap
-    gap: 12px
-
-    &:first-child 
-       font-weight: 700         
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    grid-template-rows: repeat(2, 1fr)
+    grid-column-gap: 24px
+    grid-row-gap: 24px
     
 .box
     border-radius: 0.2em 
     box-shadow: 0px 3px 6px 0px var(--medium-text)
-    padding: 8px
+    padding: 12px
     background-color: var(--light-text)
+
+.font-title
+    font-size:18px
+    font-weight: 700    
+
+.font-green
+    color: var(--green)
+
+.font-red
+    color: var(--red)
