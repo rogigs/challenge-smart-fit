@@ -21,8 +21,17 @@
     </div>
   </section>
 
-  <section *ngIf="unitsLocations" class="section__unities">
+  <section
+    *ngIf="unitsLocations && unitsFiltered.length === 0"
+    class="section__unities"
+  >
     <div *ngFor="let unit of unitsLocations.locations">
+      <app-card-unity [units]="unit" />
+    </div>
+  </section>
+
+  <section *ngIf="unitsFiltered.length > 0" class="section__unities">
+    <div *ngFor="let unit of unitsFiltered">
       <app-card-unity [units]="unit" />
     </div>
   </section>
