@@ -27,16 +27,22 @@
       <app-item-recommended [item]="item" />
     </div>
   </section>
-  <ng-template #noUnits>
-    <h1>Nenhuma unidade encontrada</h1>
-  </ng-template>
-  <ng-container
-    *ngIf="unitsFiltered.length > 0 || unitsLocations; else noUnits"
-  >
-    <section class="section__unities">
-      <div *ngFor="let unit of whoIsToListItem()">
-        <app-card-unity [unit]="unit" />
-      </div>
-    </section>
+  <ng-container *ngIf="loading; else listUnits">
+    <p>Carregando...</p>
   </ng-container>
+
+  <ng-template #listUnits>
+    <ng-template #noUnits>
+      <h1>Nenhuma unidade encontrada</h1>
+    </ng-template>
+    <ng-container
+      *ngIf="unitsFiltered.length > 0 || unitsLocations; else noUnits"
+    >
+      <section class="section__unities">
+        <div *ngFor="let unit of whoIsToListItem()">
+          <app-card-unity [unit]="unit" />
+        </div>
+      </section>
+    </ng-container>
+  </ng-template>
 </section>

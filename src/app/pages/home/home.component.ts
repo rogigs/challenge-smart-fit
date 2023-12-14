@@ -21,13 +21,20 @@ export class HomeComponent implements OnInit {
   itemsRecommended: Recommendations = recommendations;
   unitsFiltered: any = [];
   numberItems: number = 0;
+  loading: boolean = true;
 
   constructor(private smartFitService: SmartFitService) {}
 
   ngOnInit() {
-    this.smartFitService.getUnitsLocations().subscribe((unitsLocations) => {
-      this.unitsLocations = unitsLocations;
-      this.numberItems = unitsLocations.locations.length;
+    this.smartFitService.getUnitsLocations().subscribe({
+      next: (unitsLocations) => {
+        this.unitsLocations = unitsLocations;
+        this.numberItems = unitsLocations.locations.length;
+      },
+      error: (e) => console.error(e),
+      complete: () => {
+        this.loading = false;
+      },
     });
   }
 
