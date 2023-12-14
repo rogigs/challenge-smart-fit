@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class FormMarkWorkoutComponent {
   @Input() numberItems!: number;
   formGroup!: FormGroup;
+  messageError!: string;
 
   @Output() sendEventToFilterUnits = new EventEmitter<{
     hour: string;
@@ -19,13 +20,25 @@ export class FormMarkWorkoutComponent {
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      hour: '',
-      showClosedUnits: true,
+      hour: undefined,
+      showClosedUnits: false,
     });
   }
 
+  onValidate(): boolean {
+    if (!this.formGroup.value.hour) {
+      this.messageError = 'Por favor preencha o formulário';
+      return false;
+    }
+
+    return true;
+  }
+
   onSubmit() {
-    this.sendEventToFilterUnits.emit(this.formGroup.value);
+    if (this.onValidate()) {
+      this.sendEventToFilterUnits.emit(this.formGroup.value);
+      this.messageError = '';
+    }
   }
 
   onReset() {

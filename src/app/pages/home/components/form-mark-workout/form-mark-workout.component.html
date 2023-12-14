@@ -1,4 +1,3 @@
-<!-- TODO: Increase acessibility -->
 <form class="form__mark-wokout" [formGroup]="formGroup">
   <h1>Qual período quer treinar?</h1>
   <hr />
@@ -10,6 +9,7 @@
         value="morning06-12"
         formControlName="hour"
         id="morning"
+        aria-required="true"
       />
       <label for="morning">Manhã</label>
     </div>
@@ -26,6 +26,7 @@
         value="afternoon12-18"
         formControlName="hour"
         id="afternoon"
+        aria-required="true"
       />
       <label for="afternoon">Tarde</label>
     </div>
@@ -41,6 +42,7 @@
         value="night18-23"
         formControlName="hour"
         id="night"
+        aria-required="true"
       />
       <label for="night">Noite</label>
     </div>
@@ -55,6 +57,7 @@
         name="hour"
         value="night"
         formControlName="showClosedUnits"
+        id="showClosedUnits"
       />
       <label for="showClosedUnits">Exibir unidades fechadas</label>
     </div>
@@ -62,7 +65,7 @@
       >Resultados encontrados: <b>{{ numberItems }}</b></span
     >
   </div>
-
+  <p class="font-error">{{ messageError }}</p>
   <div class="form__mark-wokout--buttons">
     <button
       class="btn btn-primary"
