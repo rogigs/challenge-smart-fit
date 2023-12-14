@@ -54,27 +54,38 @@ export class HomeComponent implements OnInit {
       return eventFirst >= unitFirst || unitLast <= eventLast;
     };
 
-    const units: any[] = (this.unitsLocations?.locations || []).reduce(
-      (accumulator: any[], unit: any) => {
-        const availableUnitsForDay: any[] = (unit?.schedules || []).reduce(
-          (unitAccumulator: any[], schedule: any) => {
-            const isAvailable =
-              weekday === schedule.weekdays &&
-              ($event.showClosedUnits || isTimeSlotAvailable(schedule.hour));
+    const reduceUnits = (accumulator: any[], unit: any) => {
+      const reduceDays = (unitAccumulator: any[], schedule: any) => {
+        if (
+          weekday === schedule.weekdays &&
+          isTimeSlotAvailable(schedule.hour)
+        ) {
+          if ($event.showClosedUnits) {
+            return $event.showClosedUnits;
+          } else {
+            unitAccumulator.push(unit);
+          }
+        }
+        return unitAccumulator;
+      };
 
-            if (isAvailable) {
-              unitAccumulator.push(unit);
-            }
+      const availableUnitsForDay: any[] = (unit?.schedules || []).reduce(
+        reduceDays,
+        []
+      );
 
-            return unitAccumulator;
-          },
-          []
-        );
+      return accumulator.concat(availableUnitsForDay);
+    };
 
-        return accumulator.concat(availableUnitsForDay);
-      },
-      []
-    );
+    const units: any[] = (this.unitsLocations?.locations || [])
+      .filter(({ opened }) => {
+        if ($event.showClosedUnits) {
+          return $event.showClosedUnits;
+        }
+
+        return opened;
+      })
+      .reduce(reduceUnits, []);
 
     this.unitsFiltered = units;
     this.numberItens = units.length;
