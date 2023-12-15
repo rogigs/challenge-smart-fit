@@ -1,0 +1,85 @@
+<form class="form__find-unit" [formGroup]="formGroup">
+  <h1>Qual período quer treinar?</h1>
+  <hr />
+  <div class="form__find-unit--div-checkbox flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="morning06-12"
+        formControlName="hour"
+        id="morning"
+        aria-required="true"
+      />
+      <label for="morning">Manhã</label>
+    </div>
+
+    <span>06:00 às 12h</span>
+  </div>
+  <hr />
+
+  <div class="form__find-unit--div-checkbox flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="afternoon12-18"
+        formControlName="hour"
+        id="afternoon"
+        aria-required="true"
+      />
+      <label for="afternoon">Tarde</label>
+    </div>
+    <span>12:01 às 18h</span>
+  </div>
+  <hr />
+
+  <div class="form__find-unit--div-checkbox flex-space-between">
+    <div>
+      <input
+        type="radio"
+        name="hour"
+        value="night18-23"
+        formControlName="hour"
+        id="night"
+        aria-required="true"
+      />
+      <label for="night">Noite</label>
+    </div>
+    <span>18:01 às 23h</span>
+  </div>
+  <hr />
+
+  <div class="form__find-unit--checkbox-results">
+    <div>
+      <input
+        type="checkbox"
+        name="hour"
+        value="night"
+        formControlName="showClosedUnits"
+        id="showClosedUnits"
+      />
+      <label for="showClosedUnits">Exibir unidades fechadas</label>
+    </div>
+    <span
+      >Resultados encontrados: <b>{{ numberItems }}</b></span
+    >
+  </div>
+  <p class="font-error">{{ messageError }}</p>
+  <div class="form__find-unit--buttons">
+    <button
+      class="btn btn-primary"
+      (click)="onSubmit()"
+      aria-label="encontrar unidade"
+    >
+      Encontrar unidade
+    </button>
+    <button
+      class="btn btn-secondary"
+      (click)="onReset()"
+      aria-label="limpar formulário"
+    >
+      Limpar
+    </button>
+  </div>
+</form>

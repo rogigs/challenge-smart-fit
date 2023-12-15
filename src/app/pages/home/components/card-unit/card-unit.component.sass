@@ -1,0 +1,53 @@
+.card-unit__section
+    display: flex
+    flex-direction: column
+    row-gap:  var(--spacing-12)
+
+    hr
+        height: 1px
+        width: 100%
+        background-color: var(--light-text)
+        border-color: var(--light-text)
+        color: var(--light-text)
+        border: none
+        
+    h1 
+        font-size: var(--font-size-large)
+
+.card-unit__section--subtitle
+    font-weight: 700
+
+.card-unit__section--images
+    display: flex
+    justify-content: space-between
+    width: 100%
+    
+    img
+        height: 100%
+        width: 20%
+
+.card-unit__section--times
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    grid-template-rows: repeat(2, 1fr)
+    grid-column-gap: var(--spacing-24)
+    grid-row-gap:  var(--spacing-24)
+    margin-top: var(--spacing-12)
+    
+.box
+    border-radius: 0.2em 
+    box-shadow: 0px 3px 6px 0px var(--medium-text)
+    padding: var(--spacing-12)
+    background-color: var(--light-text-transparent)
+    min-height: 282px
+    height: 100%
+
+.font-title
+    font-size: var( --font-size-normal)
+    font-weight: 700    
+
+.font-green
+    color: var(--sucess-color)
+
+.font-red
+    color: var(--error-color)

@@ -1,0 +1,55 @@
+<div *ngIf="unit.opened === true" class="card-unit__section box">
+  <p class="card-unit__section--subtitle font-green">Aberto</p>
+  <h1>{{ unit.title }}</h1>
+  <div [innerHTML]="unit.content"></div>
+
+  <hr />
+
+  <div class="card-unit__section--images">
+    <img
+      [src]="
+        '../../../../../assets/' + getCorrectImage(unit.mask) + '-mask.png'
+      "
+      loading="lazy"
+      [alt]="'Imagem de' + unit.mask"
+    />
+    <img
+      [src]="
+        '../../../../../assets/' + getCorrectImage(unit.towel) + '-towel.png'
+      "
+      loading="lazy"
+      [alt]="'Imagem de' + unit.towel"
+    />
+    <img
+      [src]="
+        '../../../../../assets/' +
+        getCorrectImage(unit.fountain) +
+        '-fountain.png'
+      "
+      loading="lazy"
+      [alt]="'Imagem de' + unit.fountain"
+    />
+    <img
+      [src]="
+        '../../../../../assets/' +
+        getCorrectImage(unit.locker_room) +
+        '-lockerroom.png'
+      "
+      loading="lazy"
+      [alt]="'Imagem de' + unit.locker_room"
+    />
+  </div>
+
+  <div class="card-unit__section--times">
+    <div *ngFor="let schedule of unit.schedules">
+      <p class="font-title">{{ schedule.weekdays }}</p>
+      <p>{{ schedule.hour }}</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="unit.opened === false" class="card-unit__section box">
+  <p class="card-unit__section--subtitle font-red">Fechado</p>
+  <h1>{{ unit.title }}</h1>
+  <div [innerHTML]="unit.content"></div>
+</div>

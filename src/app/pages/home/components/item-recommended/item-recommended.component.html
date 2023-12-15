@@ -2,7 +2,11 @@
   <h1>{{ item.title }}</h1>
   <div class="wrapper__item-recommended--img">
     <div *ngFor="let image of item.images">
-      <img [src]="'../../../assets/' + image.name" alt="Imagem de ..." />
+      <img
+        [src]="'../../../assets/' + image.name"
+        loading="lazy"
+        [alt]="'Imagem de' + image.name"
+      />
       <figcaption>{{ image.legend }}</figcaption>
     </div>
   </div>

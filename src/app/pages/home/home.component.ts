@@ -1,11 +1,20 @@
-import { Component, LOCALE_ID, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   SmartFitService,
-  UnitsLocations,
+  UnitLocation,
 } from 'src/app/core/services/smart-fit.service';
-import { recommendations } from 'src/app/core/utils/home/recommendations';
-import { DatePipe } from '@angular/common';
-import { scheduled } from 'rxjs';
+import {
+  Recommendations,
+  recommendations,
+} from 'src/app/core/utils/home/recommendations';
+import { format } from 'date-fns';
+import { enUS } from 'date-fns/locale';
+import { FormFindUnit } from './components/form-find-unit/form-find-unit.component';
+
+type Schedule = {
+  weekdays: string;
+  hour: string;
+};
 
 @Component({
   selector: 'app-home',
@@ -13,58 +22,106 @@ import { scheduled } from 'rxjs';
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
-  unitsLocations!: UnitsLocations;
-  itensRecommendeds = recommendations;
-  message!: string;
+  loading: boolean = true;
+  numberItems: number = 0;
+  itemsRecommended: Recommendations = recommendations;
+  unitsLocations!: UnitLocation[];
+  unitsFiltered: UnitLocation[] = [];
 
-  constructor(
-    private datePipe: DatePipe,
-    @Inject(LOCALE_ID) private locale: string,
-    private smartFitService: SmartFitService
-  ) {}
+  constructor(private smartFitService: SmartFitService) {}
 
   ngOnInit() {
-    this.smartFitService.getUnitsLocations().subscribe((unitsLocations) => {
-      console.log(unitsLocations);
+    this.smartFitService.getUnitsLocations().subscribe({
+      next: (unitsLocations) => {
+        const filterLocations = unitsLocations.locations.filter(
+          (location) => location?.schedules
+        );
 
-      this.unitsLocations = unitsLocations;
+        this.unitsLocations = filterLocations;
+
+        this.numberItems = filterLocations.length;
+      },
+      error: (e) => console.error(e),
+      complete: () => {
+        this.loading = false;
+      },
     });
   }
 
-  filterUnits($event: { hour: string; showClosedUnits: boolean }) {
-    // const today = new Date();
-    // const weekAndHourNow = this.datePipe.transform(
-    //   today,
-    //   'EEEE, HH:mm:ss',
-    //   undefined,
-    //   this.locale
-    // );
+  whoIsToListItem(): UnitLocation[] {
+    if (this.unitsFiltered.length) {
+      return this.unitsFiltered;
+    }
 
-    const a: string[][] = this.unitsLocations?.locations?.map((unit) =>
-      unit?.schedules?.map((schedule) => {
-        const hour = schedule?.hour?.replace(/\D/g, '');
-        console.log(
-          '🚀 ~ file: home.component.ts:46 ~ HomeComponent ~ unit?.schedules?.map ~ hour:',
-          hour
-        );
+    return this.unitsLocations;
+  }
 
-        if (!hour) {
-          return 'Sem horário';
+  getToday(): string {
+    const today = new Date();
+    const weekToday = format(today, 'EEEE', { locale: enUS });
+    const weekday = {
+      Sunday: 'Dom.',
+      Monday: 'Seg. à Sex.',
+      Tuesday: 'Seg. à Sex.',
+      Wednesday: 'Seg. à Sex.',
+      Thursday: 'Seg. à Sex.',
+      Friday: 'Seg. à Sex.',
+      Saturday: 'Sáb.',
+    }[weekToday] as string;
+
+    return weekday;
+  }
+
+  getHours = (hour: string): [number, number] => {
+    const hourFirst = parseInt(hour.substring(0, 2));
+    const hourFinish = parseInt(hour.substring(2));
+
+    return [hourFirst, hourFinish];
+  };
+
+  filterUnits($event: FormFindUnit) {
+    const isTimeSlotAvailable = (hourSchedule: string): boolean => {
+      const [unitFirst, unitLast] = this.getHours(hourSchedule);
+      const [eventFirst, eventLast] = this.getHours(
+        $event.hour.replace(/\D/g, '')
+      );
+
+      return eventFirst >= unitFirst || unitLast <= eventLast;
+    };
+
+    const reduceUnits = (accumulator: UnitLocation[], unit: UnitLocation) => {
+      const reduceDays = (
+        unitAccumulator: UnitLocation[],
+        schedule: Schedule
+      ) => {
+        if (
+          this.getToday() === schedule.weekdays &&
+          isTimeSlotAvailable(schedule.hour)
+        ) {
+          unitAccumulator.push(unit);
+        }
+        return unitAccumulator;
+      };
+
+      const availableUnitsForDay: UnitLocation[] = unit.schedules.reduce(
+        reduceDays,
+        []
+      );
+
+      return accumulator.concat(availableUnitsForDay);
+    };
+
+    const units: UnitLocation[] = this.unitsLocations
+      .filter(({ opened }) => {
+        if ($event.showClosedUnits) {
+          return $event.showClosedUnits;
         }
 
-        const hourChoosen = hour.replace(/\D/g, '');
-
-        if (hourChoosen) {
-        }
-
-        return 'Tem horário';
+        return opened;
       })
-    );
+      .reduce(reduceUnits, []);
 
-    console.log(a);
-    console.log('a');
-
-    // need to PT-BR
-    console.log($event);
+    this.unitsFiltered = units;
+    this.numberItems = units.length;
   }
 }

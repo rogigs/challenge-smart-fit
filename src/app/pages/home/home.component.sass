@@ -1,5 +1,5 @@
 .box-padding
-    padding: 24px
+    padding: var(--spacing-24)
     
 .box-light-gray
     background-color: var(--light-text)
@@ -13,7 +13,7 @@
 .section-home
     display: flex
     flex-direction: column
-    gap: 24px
+    gap:  var(--spacing-24)
     margin: 48px 0
 
     h1
@@ -22,17 +22,21 @@
 .line-title
     height: 10px
     width: 60px
-    background-color: #000
+    background-color: var(--dark-color)
 
 .section__form
     display: flex
     flex-direction: column
-    gap: 24px
+    gap:  var(--spacing-24)
 
 .section__form--hour
     display: flex
     align-items: center
-    column-gap: 8px
+    column-gap: var(--spacing-8)
+
+    img 
+        width: 40px
+        height: max-content
    
 .section__recommended 
     display: flex
@@ -42,13 +46,13 @@
 .section__unities
     display: grid
     grid-template-columns: repeat(3, 1fr)
-    grid-column-gap: 24px
-    grid-row-gap: 24px
+    grid-column-gap:  var(--spacing-24)
+    grid-row-gap:  var(--spacing-24)
 
 @media (max-width: 768px) 
     .section__recommended 
         flex-direction: column
-        row-gap: 24px
+        row-gap:  var(--spacing-24)
     .section__unities
         grid-template-columns: 1fr
     

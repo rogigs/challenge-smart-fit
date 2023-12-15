@@ -56,3 +56,5 @@ export const recommendations = [
     ],
   },
 ];
+
+export type Recommendations = typeof recommendations;
