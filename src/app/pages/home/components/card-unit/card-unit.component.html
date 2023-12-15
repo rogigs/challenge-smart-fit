@@ -1,11 +1,11 @@
-<div *ngIf="unit.opened === true" class="card-unity__section box">
-  <p class="card-unity__section--subtitle font-green">Aberto</p>
+<div *ngIf="unit.opened === true" class="card-unit__section box">
+  <p class="card-unit__section--subtitle font-green">Aberto</p>
   <h1>{{ unit.title }}</h1>
   <div [innerHTML]="unit.content"></div>
 
   <hr />
 
-  <div class="card-unity__section--images">
+  <div class="card-unit__section--images">
     <img
       [src]="
         '../../../../../assets/' + getCorrectImage(unit.mask) + '-mask.png'
@@ -40,7 +40,7 @@
     />
   </div>
 
-  <div class="card-unity__section--times">
+  <div class="card-unit__section--times">
     <div *ngFor="let schedule of unit.schedules">
       <p class="font-title">{{ schedule.weekdays }}</p>
       <p>{{ schedule.hour }}</p>
@@ -48,8 +48,8 @@
   </div>
 </div>
 
-<div *ngIf="unit.opened === false" class="card-unity__section box">
-  <p class="card-unity__section--subtitle font-red">Fechado</p>
+<div *ngIf="unit.opened === false" class="card-unit__section box">
+  <p class="card-unit__section--subtitle font-red">Fechado</p>
   <h1>{{ unit.title }}</h1>
   <div [innerHTML]="unit.content"></div>
 </div>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {
   SmartFitService,
   UnitLocation,
-  UnitsLocations,
 } from 'src/app/core/services/smart-fit.service';
 import {
   Recommendations,
@@ -10,6 +9,12 @@ import {
 } from 'src/app/core/utils/home/recommendations';
 import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
+import { FormFindUnit } from './components/form-find-unit/form-find-unit.component';
+
+type Schedule = {
+  weekdays: string;
+  hour: string;
+};
 
 @Component({
   selector: 'app-home',
@@ -17,19 +22,24 @@ import { enUS } from 'date-fns/locale';
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
-  unitsLocations!: UnitsLocations;
-  itemsRecommended: Recommendations = recommendations;
-  unitsFiltered: any = [];
-  numberItems: number = 0;
   loading: boolean = true;
+  numberItems: number = 0;
+  itemsRecommended: Recommendations = recommendations;
+  unitsLocations!: UnitLocation[];
+  unitsFiltered: UnitLocation[] = [];
 
   constructor(private smartFitService: SmartFitService) {}
 
   ngOnInit() {
     this.smartFitService.getUnitsLocations().subscribe({
       next: (unitsLocations) => {
-        this.unitsLocations = unitsLocations;
-        this.numberItems = unitsLocations.locations.length;
+        const filterLocations = unitsLocations.locations.filter(
+          (location) => location?.schedules
+        );
+
+        this.unitsLocations = filterLocations;
+
+        this.numberItems = filterLocations.length;
       },
       error: (e) => console.error(e),
       complete: () => {
@@ -43,10 +53,10 @@ export class HomeComponent implements OnInit {
       return this.unitsFiltered;
     }
 
-    return this.unitsLocations.locations;
+    return this.unitsLocations;
   }
 
-  filterUnits($event: { hour: string; showClosedUnits: boolean }) {
+  getToday(): string {
     const today = new Date();
     const weekToday = format(today, 'EEEE', { locale: enUS });
     const weekday = {
@@ -57,26 +67,35 @@ export class HomeComponent implements OnInit {
       Thursday: 'Seg. à Sex.',
       Friday: 'Seg. à Sex.',
       Saturday: 'Sáb.',
-    }[weekToday];
+    }[weekToday] as string;
 
-    const getHours = (hour: string): [number, number] => {
-      const hourFirst = parseInt(hour.substring(0, 2));
-      const hourFinish = parseInt(hour.substring(2));
+    return weekday;
+  }
 
-      return [hourFirst, hourFinish];
-    };
+  getHours = (hour: string): [number, number] => {
+    const hourFirst = parseInt(hour.substring(0, 2));
+    const hourFinish = parseInt(hour.substring(2));
 
+    return [hourFirst, hourFinish];
+  };
+
+  filterUnits($event: FormFindUnit) {
     const isTimeSlotAvailable = (hourSchedule: string): boolean => {
-      const [unitFirst, unitLast] = getHours(hourSchedule);
-      const [eventFirst, eventLast] = getHours($event.hour.replace(/\D/g, ''));
+      const [unitFirst, unitLast] = this.getHours(hourSchedule);
+      const [eventFirst, eventLast] = this.getHours(
+        $event.hour.replace(/\D/g, '')
+      );
 
       return eventFirst >= unitFirst || unitLast <= eventLast;
     };
 
-    const reduceUnits = (accumulator: any[], unit: any) => {
-      const reduceDays = (unitAccumulator: any[], schedule: any) => {
+    const reduceUnits = (accumulator: UnitLocation[], unit: UnitLocation) => {
+      const reduceDays = (
+        unitAccumulator: UnitLocation[],
+        schedule: Schedule
+      ) => {
         if (
-          weekday === schedule.weekdays &&
+          this.getToday() === schedule.weekdays &&
           isTimeSlotAvailable(schedule.hour)
         ) {
           unitAccumulator.push(unit);
@@ -84,7 +103,7 @@ export class HomeComponent implements OnInit {
         return unitAccumulator;
       };
 
-      const availableUnitsForDay: any[] = (unit?.schedules || []).reduce(
+      const availableUnitsForDay: UnitLocation[] = unit.schedules.reduce(
         reduceDays,
         []
       );
@@ -92,7 +111,7 @@ export class HomeComponent implements OnInit {
       return accumulator.concat(availableUnitsForDay);
     };
 
-    const units: any[] = (this.unitsLocations?.locations || [])
+    const units: UnitLocation[] = this.unitsLocations
       .filter(({ opened }) => {
         if ($event.showClosedUnits) {
           return $event.showClosedUnits;

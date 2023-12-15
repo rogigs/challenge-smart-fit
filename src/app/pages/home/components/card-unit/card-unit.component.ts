@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { UnitLocation } from 'src/app/core/services/smart-fit.service';
 
 @Component({
-  selector: 'app-card-unity',
-  templateUrl: './card-unity.component.html',
-  styleUrls: ['./card-unity.component.sass'],
+  selector: 'app-card-unit',
+  templateUrl: './card-unit.component.html',
+  styleUrls: ['./card-unit.component.sass'],
 })
-export class CardUnityComponent {
+export class CardUnitComponent {
   @Input() unit!: UnitLocation;
 
   getCorrectImage(image: string): string {

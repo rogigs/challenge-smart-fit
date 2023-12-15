@@ -16,7 +16,7 @@
       />
       <p>Horário</p>
     </div>
-    <app-form-mark-workout
+    <app-form-find-unit
       (sendEventToFilterUnits)="filterUnits($event)"
       [numberItems]="numberItems"
     />
@@ -40,7 +40,7 @@
     >
       <section class="section__unities">
         <div *ngFor="let unit of whoIsToListItem()">
-          <app-card-unity [unit]="unit" />
+          <app-card-unit [unit]="unit" />
         </div>
       </section>
     </ng-container>

@@ -1,20 +1,22 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+export type FormFindUnit = {
+  hour: string;
+  showClosedUnits: boolean;
+};
+
 @Component({
-  selector: 'app-form-mark-workout',
-  templateUrl: './form-mark-workout.component.html',
-  styleUrls: ['./form-mark-workout.component.sass'],
+  selector: 'app-form-find-unit',
+  templateUrl: './form-find-unit.component.html',
+  styleUrls: ['./form-find-unit.component.sass'],
 })
-export class FormMarkWorkoutComponent {
+export class FormFindUnitComponent {
   @Input() numberItems!: number;
   formGroup!: FormGroup;
   messageError!: string;
 
-  @Output() sendEventToFilterUnits = new EventEmitter<{
-    hour: string;
-    showClosedUnits: boolean;
-  }>();
+  @Output() sendEventToFilterUnits = new EventEmitter<FormFindUnit>();
 
   constructor(private formBuilder: FormBuilder) {}
 
